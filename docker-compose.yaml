@@ -1,0 +1,12 @@
+version: "3.0"
+services:
+  server:
+    image: makuboio/satisfactory
+    environment:
+      - SF_SERVER_QUERY_PORT
+      - SF_BEACON_PORT
+      - SF_PORT
+    ports:
+      - ${SF_SERVER_QUERY_PORT}:${SF_SERVER_QUERY_PORT}/udp
+      - ${SF_BEACON_PORT}:${SF_BEACON_PORT}/udp
+      - ${SF_PORT}:${SF_PORT}/udp
