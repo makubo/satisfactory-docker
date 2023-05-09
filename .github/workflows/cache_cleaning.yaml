@@ -3,6 +3,8 @@ on:
   pull_request:
     types:
       - closed
+    branches-ignore:    
+      - master
 
 jobs:
   cleanup:
@@ -11,7 +13,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         
-      - name: Cleanup
+      - name: Cleanup PR cache
         run: |
           gh extension install actions/gh-actions-cache
           
@@ -30,6 +32,28 @@ jobs:
           done
 
           echo Branch ${{ github.event.pull_request.head.ref }}
+          echo "Done"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup source branch cache
+        run: |
+          gh extension install actions/gh-actions-cache
+          
+          REPO=${{ github.repository }}
+          BRANCH=${{ github.event.pull_request.head.ref }}
+
+          echo "Fetching list of cache key"
+          cacheKeysForPR=$(gh actions-cache list -R $REPO -B $BRANCH | cut -f 1 )
+
+          ## Setting this to not fail the workflow while deleting cache keys. 
+          set +e
+          echo "Deleting caches..."
+          for cacheKey in $cacheKeysForPR
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
+          done
+
           echo "Done"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
