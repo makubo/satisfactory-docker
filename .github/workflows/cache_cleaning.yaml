@@ -5,6 +5,10 @@ on:
       - closed
     branches-ignore:    
       - master
+  workflow_run:
+    workflows: ["Image Build"]
+    types:
+      - completed
 
 jobs:
   cleanup:
