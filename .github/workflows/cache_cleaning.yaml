@@ -28,6 +28,8 @@ jobs:
           do
               gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
           done
+
+          echo Branch ${{ github.event.pull_request.head.ref }}
           echo "Done"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
