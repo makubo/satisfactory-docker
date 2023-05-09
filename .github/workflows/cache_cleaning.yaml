@@ -12,11 +12,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: Install GH extension
+        run: gh extension install actions/gh-actions-cache
         
       - name: Cleanup PR cache
         run: |
-          gh extension install actions/gh-actions-cache
-          
           REPO=${{ github.repository }}
           BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
 
@@ -38,8 +39,6 @@ jobs:
 
       - name: Cleanup source branch cache
         run: |
-          gh extension install actions/gh-actions-cache
-          
           REPO=${{ github.repository }}
           BRANCH=${{ github.event.pull_request.head.ref }}
 
