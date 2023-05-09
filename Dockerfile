@@ -7,6 +7,8 @@ RUN useradd -m steamcmd
 RUN mkdir /opt/satisfactory-server
 RUN chown steamcmd:steamcmd /opt/satisfactory-server
 
+RUN echo "test2" > /root/test2.txt
+
 # install satisfactory
 RUN su steamcmd -c "steamcmd +login anonymous +force_install_dir /opt/satisfactory-server +app_update 1690800 validate +quit"
 
