@@ -15,6 +15,8 @@ jobs:
 
       - name: Install GH extension
         run: gh extension install actions/gh-actions-cache
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Cleanup PR cache
         run: |
