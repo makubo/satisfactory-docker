@@ -6,6 +6,10 @@ on:
       - .github/**
       - src/**
       - Dockerfile
+      - test.txt
+  pull_request:
+    types:
+      - opened
 
 jobs:
   build:

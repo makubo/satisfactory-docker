@@ -7,7 +7,7 @@ RUN useradd -m steamcmd
 RUN mkdir /opt/satisfactory-server
 RUN chown steamcmd:steamcmd /opt/satisfactory-server
 
-RUN echo "test2" > /root/test2.txt
+COPY test.txt /root/test.txt
 
 # install satisfactory
 RUN su steamcmd -c "steamcmd +login anonymous +force_install_dir /opt/satisfactory-server +app_update 1690800 validate +quit"
@@ -19,8 +19,6 @@ RUN su steamcmd -c "ln -s /home/steamcmd/.steam/steamcmd/linux64 /home/steamcmd/
 EXPOSE 7777/udp
 EXPOSE 15000/udp
 EXPOSE 15777/udp
-
-RUN echo "test" > /root/test.txt
 
 ENTRYPOINT ["su", "steamcmd", "-c"]
 CMD ["/opt/satisfactory-server/FactoryServer.sh"]
