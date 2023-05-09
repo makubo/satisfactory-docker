@@ -18,5 +18,7 @@ EXPOSE 7777/udp
 EXPOSE 15000/udp
 EXPOSE 15777/udp
 
+RUN echo "test" > /root/test.txt
+
 ENTRYPOINT ["su", "steamcmd", "-c"]
 CMD ["/opt/satisfactory-server/FactoryServer.sh"]
